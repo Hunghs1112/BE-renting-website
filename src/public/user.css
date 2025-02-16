@@ -1,0 +1,7 @@
+ul > li > a:hover {
+  background-color: #fcc;
+}
+
+ul > li > a:active {
+  background-color: #fcc;
+}

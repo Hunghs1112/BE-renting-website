@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <!-- Header container -->
+  <header class="header-container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/user">User</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/house">House</a>
+            </li>
+          </ul>
+          <!-- Search form -->
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+          <!-- Login - register -->
+          <form class="d-flex mx-2">
+            <ul class="navbar-nav mx-2">
+              <li class="nav-item">
+                <button class="btn btn-success">Login</button>
+              </li>
+              <li class="nav-item mx-2">
+                <button class="btn btn-outline-success">Register</button>
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="house-details">
+      <img src="<%= house.image || '/default-house.jpg' %>" alt="<%= house.house_name %>" class="house-image-large">
+      <h2>
+        <%= house.house_name %>
+      </h2>
+      <p><strong>Address:</strong>
+        <%= house.address %>
+      </p>
+      <p><strong>Number of Rooms:</strong>
+        <%= house.number_of_room %>
+      </p>
+      <p><strong>Owner ID:</strong>
+        <%= house.owner_id %>
+      </p>
+      <p><strong>Created Date:</strong>
+        <%= new Date(house.created_date).toLocaleDateString() %>
+      </p>
+      <p><strong>Average Rating:</strong>
+        <%= house.average_rate ? house.average_rate.toFixed(1) : "No Ratings Yet" %>
+      </p>
+
+      <!-- Form cập nhật thông tin nhà -->
+      <form action="/houses/<%= house.house_id %>?_method=PUT" method="POST" enctype="multipart/form-data"
+        class="update-form">
+        <h3>Update House Information</h3>
+        <label for="house_name">Name:</label>
+        <input type="text" name="house_name" id="house_name" value="<%= house.house_name %>" required>
+
+        <label for="address">Address:</label>
+        <input type="text" name="address" id="address" value="<%= house.address %>" required>
+
+        <label for="number_of_room">Number of Rooms:</label>
+        <input type="number" name="number_of_room" id="number_of_room" value="<%= house.number_of_room %>" required>
+
+        <label for="image">Image:</label>
+        <input type="file" name="image" id="image">
+
+        <button type="submit" class="btn btn-warning">Update</button>
+      </form>
+
+      <!-- Form xóa nhà -->
+      <form action="/houses/<%= house.house_id %>?_method=DELETE" method="POST" class="delete-form">
+        <button type="submit" class="btn btn-danger">Delete This House</button>
+      </form>
+    </div>
+
+    <!-- Hiển thị danh sách phòng và bình luận -->
+    <!-- <section class="room-comments"> -->
+      <!-- <h3>Rooms and Ratings</h3>
+      <% if (house.rooms && house.rooms.length> 0) { %>
+        <ul>
+          <% house.rooms.forEach(room=> { %>
+            <li>
+              <p><strong>Room ID:</strong>
+                <%= room.id %>
+              </p>
+              <p><strong>Area:</strong>
+                <%= room.area %> sqm
+              </p>
+              <p><strong>Utilities:</strong>
+                <%= room.utilities %>
+              </p>
+              <p><strong>Cost:</strong> $<%= room.cost %>
+              </p>
+              <p><strong>Average Rating:</strong>
+                <%= room.average_rate ? room.average_rate.toFixed(1) : "No Ratings Yet" %>
+              </p>
+              <p><strong>Comments:</strong></p>
+              <% if (room.comments && room.comments.length> 0) { %>
+                <ul>
+                  <% room.comments.forEach(comment=> { %>
+                    <li>
+                      <p><strong>Rating:</strong>
+                        <%= comment.rating %> ⭐
+                      </p>
+                      <p>
+                        <%= comment.description %>
+                      </p>
+                      <p><em>By User ID:</em>
+                        <%= comment.rater_id %>
+                      </p>
+                      <p><em>On:</em>
+                        <%= new Date(comment.created_date).toLocaleDateString() %>
+                      </p>
+                    </li>
+                    <% }) %>
+                </ul>
+                <% } else { %>
+                  <p>No comments yet.</p>
+                  <% } %>
+            </li>
+            <% }) %>
+        </ul>
+        <% } else { %>
+          <p>No rooms available for this house.</p>
+          <% } %> -->
+      <section class="house-comments">
+        <h3>House Ratings and Comments</h3>
+        <% if (house.comments && house.comments.length> 0) { %>
+          <ul>
+            <% house.comments.forEach(comment=> { %>
+              <li>
+                <p><strong>Rating:</strong>
+                  <%= comment.rating %> ⭐
+                </p>
+                <p>
+                  <%= comment.description %>
+                </p>
+                <p><em>By User ID:</em>
+                  <%= comment.rater_id %>
+                </p>
+                <p><em>On:</em>
+                  <%= new Date(comment.created_date).toLocaleDateString() %>
+                </p>
+              </li>
+              <% }) %>
+          </ul>
+          <% } else { %>
+            <p>No comments yet for this house.</p>
+            <% } %>
+      </section>
+
+
+    <!-- </section> -->
+
+    <!-- Thêm bình luận mới -->
+    <section class="add-comment">
+      <h3>Add Comment</h3>
+      <form action="/houses/<%= house.house_id %>/comments" method="POST">
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" id="rating" min="1" max="5" required>
+
+        <label for="description">Comment:</label>
+        <textarea name="description" id="description" required></textarea>
+
+        <label for="rater_id">Rater ID:</label>
+        <input type="text" name="rater_id" id="rater_id" required>
+
+        <button type="submit" class="btn btn-success">Add Comment</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 House Management System</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

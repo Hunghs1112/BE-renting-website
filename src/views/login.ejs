@@ -1,0 +1,95 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+  </head>
+  <!-- Latest compiled and minified CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    .red {
+      border: 1px solid red;
+    }
+
+    .green {
+      border: 1px solid green;
+    }
+
+    .yellow {
+      border: 1px solid yellow;
+    }
+
+    .login-container {
+      background-color: whitesmoke;
+      min-height: 100vh;
+      padding-top: 20px;
+      .content-right {
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 /10%);
+        box-sizing: border-box;
+
+        .forgot-password {
+          text-decoration: none;
+        }
+      }
+    }
+    .content-left {
+      margin-top: 50px;
+
+      .brand {
+        text-transform: uppercase;
+        font-size: 30px;
+        color: #1877f2;
+      }
+
+      .detail {
+        font-size: 20px;
+      }
+    }
+  </style>
+  <body>
+    <div class="login-container mt-3">
+      <div class="container">
+        <div class="row px-3 px-sm-0">
+          <div class="content-left col-7">
+            <div class="brand">timkiemnhatro.vn</div>
+            <div class="detail">Tim kiem nha tro tai khu vuc Hanoi</div>
+          </div>
+          <div class="content-right col-5 d-flex flex-column gap-3 py-3">
+            <form method="POST" action="/user/login">
+              <input
+                type="text "
+                class="form-control"
+                name="emailPhone"
+                placeholder="Email or your phone number"
+              />
+              <input
+                type="password"
+                class="form-control"
+                name="password"
+                placeholder="Password"
+              />
+              <button class="btn btn-primary">Login</button>
+              <span class="text-center">
+                <a class="forgot-password" href="#"
+                  >Forgot your password?</a
+                ></span
+              >
+              <hr />
+              <div class="text-center">
+                <button class="btn btn-success">Create new account</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
